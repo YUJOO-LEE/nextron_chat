@@ -1,0 +1,12 @@
+appId: com.yujoo.nextron
+productName: YUJOO CHAT
+copyright: Copyright © 2023 YUJOO-LEE
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - from: .
+    filter:
+      - package.json
+      - app
+publish: null
