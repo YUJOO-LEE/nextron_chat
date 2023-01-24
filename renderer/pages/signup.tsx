@@ -4,15 +4,15 @@ import Input from '../components/common/Input';
 import styled from 'styled-components';
 import Button from '../components/common/Button';
 
-function Home() {
+const Signup = () => {
   return (
     <>
       <Head>
-        <title>LOGIN - YUJOO CHAT</title>
+        <title>SIGN UP - YUJOO CHAT</title>
       </Head>
       <Styled.Wrapper>
         <form>
-          <Styled.Title>YUJOO CHAT</Styled.Title>
+          <Styled.Title>회원가입</Styled.Title>
           <Styled.ListWrapper>
             <Styled.ListItem>
               <Input type='text' name='userId' placeholder='아이디를 입력하세요' />
@@ -23,23 +23,28 @@ function Home() {
               <label htmlFor='userPw'>비밀번호</label>
             </Styled.ListItem>
             <Styled.ListItem>
-              <Button type='submit' className='big green'>로그인</Button>
+              <Input type='password' name='userPw2' placeholder='비밀번호를 재입력하세요' />
+              <label htmlFor='userPw2'>비밀번호 재입력</label>
+            </Styled.ListItem>
+            <Styled.ListItem>
+              <Input type='password' name='userName' placeholder='닉네임을 입력하세요' />
+              <label htmlFor='userName'>닉네임</label>
+            </Styled.ListItem>
+            <Styled.ListItem>
+              <Button type='submit' className='big green'>회원가입</Button>
             </Styled.ListItem>
           </Styled.ListWrapper>
         </form>
         <Styled.Signup>
-          <span>아직 회원가입을 하지 않으셨나요?</span>
-          <Link href='/signup'>회원가입</Link>
+          <span>이미 회원가입을 하셨나요?</span>
+          <Link href='/home'>로그인</Link>
         </Styled.Signup>
-        
-        {/* 테스트용 */}
-        <Link href='/'>채팅</Link>
       </Styled.Wrapper>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Signup;
 
 const Styled = {
   Wrapper: styled.div`

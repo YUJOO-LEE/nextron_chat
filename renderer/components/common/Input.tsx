@@ -11,9 +11,9 @@ export default Input;
 
 const Styled = {
   Input: styled.input`
-    padding: 11px;
+    padding: 10px;
     border-radius: 5px;
-    border: 2px solid transparent;
+    border: 1px solid #ddd;
     background-color: #fff;
     font-size: 16px;
 

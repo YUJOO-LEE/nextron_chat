@@ -20,12 +20,17 @@ const Styled = {
     background-color: transparent;
     cursor: pointer;
 
+    &.big{
+      padding: 10px;
+      font-size: 16px;
+    }
+
     &.gray{
       background-color: #efefef;
     }
 
-    &.red{
-      background-color: #900000;
+    &.green{
+      background-color: #00631c;
       color: #fff;
     }
   `,

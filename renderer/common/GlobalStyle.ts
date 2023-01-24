@@ -10,6 +10,11 @@ export const GlobalStyle = createGlobalStyle`
   ul,ol,li{
     list-style: none;
   }
+  
+  a{
+    color: inherit;
+    text-decoration: none;
+  }
 
   body{
     margin: 0;
