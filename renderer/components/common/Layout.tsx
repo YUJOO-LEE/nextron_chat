@@ -18,11 +18,12 @@ export default Layout;
 const Styled = {
   Wrapper: styled.div`
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: space-between;
   `,
   Contents: styled.main`
+    margin-left: 60px;
     flex: 1;
     min-height: 100vh;
     padding: 20px;

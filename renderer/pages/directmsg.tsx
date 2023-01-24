@@ -1,17 +1,32 @@
-import Head from "next/head";
-import Layout from "../components/common/Layout";
+import Head from 'next/head';
+import styled from 'styled-components';
+import DmListItem from '../components/DmListItem';
+import Layout from '../components/common/Layout';
 
-const Index = () => {
+const DirectMsg = () => {
   return (
     <>
       <Head>
-        <title>USER LIST - YUJOO CHAT</title>
+        <title>DIRECT MESSAGE - YUJOO CHAT</title>
       </Head>
       <Layout>
         <h1>다이렉트 메세지</h1>
+        <Styled.UserList>
+          {Array(20).fill('유저').map((item: string) => (
+            <DmListItem>{item}</DmListItem>
+          ))}
+        </Styled.UserList>
       </Layout>
     </>
   )
 }
 
-export default Index;
+export default DirectMsg;
+
+const Styled = {
+  UserList: styled.ul`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  `,
+}

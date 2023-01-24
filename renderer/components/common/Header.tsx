@@ -32,6 +32,8 @@ export default Header;
 
 const Styled = {
   Wrapper: styled.header`
+    position: fixed;
+    z-index: 10;
     width: 60px;
     height: 100%;
     padding: 5px;
