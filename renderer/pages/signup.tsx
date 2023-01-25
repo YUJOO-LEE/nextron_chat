@@ -7,6 +7,7 @@ import { NextPage } from 'next';
 import { ChangeEvent, FormEventHandler, useState } from 'react';
 import { useAuth } from '../context/authContext';
 import { useRouter } from 'next/router';
+import { errorMsg } from '../data/errorMsg';
 
 const Signup: NextPage = () => {
   const { signup } = useAuth();
@@ -21,6 +22,13 @@ const Signup: NextPage = () => {
 
   const handleSignup: FormEventHandler = async (e) => {
     e.preventDefault();
+    if (!UserEmail || !UserPw || !UserName) {
+      return setErrorMsg(errorMsg['signup-form-is-empty']);
+    }
+
+    if (UserPw !== UserPw2) {
+      return setErrorMsg(errorMsg['pw-are-diffent']);
+    }
 
     try{
       setLoading(true);
@@ -28,7 +36,7 @@ const Signup: NextPage = () => {
       router.push('/home');
     } catch(err) {
       console.error(err);
-      setErrorMsg(err.code);
+      setErrorMsg(errorMsg[err.code] || errorMsg['signup-defualt-error']);
     } finally {
       setLoading(false);
     }

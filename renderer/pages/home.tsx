@@ -7,6 +7,7 @@ import { NextPage } from 'next';
 import { ChangeEvent, FormEventHandler, useState } from 'react';
 import { useAuth } from '../context/authContext';
 import { useRouter } from 'next/router';
+import { errorMsg } from '../data/errorMsg';
 
 const Home: NextPage = () => {
   const { login } = useAuth();
@@ -19,6 +20,9 @@ const Home: NextPage = () => {
 
   const handleLogin: FormEventHandler = async (e) => {
     e.preventDefault();
+    if (!UserEmail || !UserPw) {
+      return setErrorMsg(errorMsg['login-form-is-empty']);
+    }
 
     try{
       setLoading(true);
@@ -26,7 +30,7 @@ const Home: NextPage = () => {
       router.push('/userlist');
     } catch(err) {
       console.error(err);
-      setErrorMsg(err.code);
+      setErrorMsg(errorMsg[err.code] || errorMsg['login-defualt-error']);
     } finally {
       setLoading(false);
     }
