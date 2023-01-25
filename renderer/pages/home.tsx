@@ -3,23 +3,53 @@ import Link from 'next/link';
 import Input from '../components/common/Input';
 import styled from 'styled-components';
 import Button from '../components/common/Button';
+import { NextPage } from 'next';
+import { ChangeEvent, FormEventHandler, useState } from 'react';
+import { useAuth } from '../context/authContext';
+import { useRouter } from 'next/router';
 
-function Home() {
+const Home: NextPage = () => {
+  const { login } = useAuth();
+  const router = useRouter();
+
+  const [UserEmail, setUserEmail] = useState<string>('');
+  const [UserPw, setUserPw] = useState<string>('');
+
+  const handleLogin: FormEventHandler = async (e) => {
+    e.preventDefault();
+
+    try{
+      await login(UserEmail, UserPw);
+      router.push('/userlist');
+    } catch(err) {
+      console.error(err);
+    }
+  }
+
+
   return (
     <>
       <Head>
         <title>LOGIN - YUJOO CHAT</title>
       </Head>
       <Styled.Wrapper>
-        <form>
+        <form onSubmit={handleLogin}>
           <Styled.Title>YUJOO CHAT</Styled.Title>
           <Styled.ListWrapper>
             <Styled.ListItem>
-              <Input type='text' name='userId' placeholder='아이디를 입력하세요' />
-              <label htmlFor='userId'>아이디</label>
+              <Input type='text' name='userEmail'
+                placeholder='이메일을 입력하세요' 
+                value={UserEmail}
+                onInput={(e: ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)}
+              />
+              <label htmlFor='userEmail'>이메일</label>
             </Styled.ListItem>
             <Styled.ListItem>
-              <Input type='password' name='userPw' placeholder='비밀번호를 입력하세요' />
+              <Input type='password' name='userPw'
+                placeholder='비밀번호를 입력하세요'
+                value={UserPw}
+                onInput={(e: ChangeEvent<HTMLInputElement>) => setUserPw(e.target.value)}
+              />
               <label htmlFor='userPw'>비밀번호</label>
             </Styled.ListItem>
             <Styled.ListItem>

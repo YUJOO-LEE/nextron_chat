@@ -1,17 +1,33 @@
-import React from 'react';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
-import { GlobalStyle } from '../common/GlobalStyle';
+import { GlobalStyle } from '../config/GlobalStyle';
+import { AuthContextProvider } from '../context/authContext';
+import { useRouter } from 'next/router';
+import ProtectedRoute from '../components/common/ProtectedRoute';
+import UnProtectedRoute from '../components/common/UnProtectedRoute';
 
-function MyApp({ Component, pageProps }: AppProps) {
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  const router = useRouter();
+  const noAuthRequired = ['/', '/home', '/signup'];
+
   return (
-    <React.Fragment>
+    <AuthContextProvider>
       <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
       </Head> 
       <GlobalStyle />
-      <Component {...pageProps} />
-    </React.Fragment>
+
+      {noAuthRequired.includes(router.pathname) ? (
+        <UnProtectedRoute>
+          <Component {...pageProps} />
+        </UnProtectedRoute>
+      ) : (
+        <ProtectedRoute>
+          <Component {...pageProps} />
+        </ProtectedRoute>
+      )}
+    </AuthContextProvider>
   );
 }
 

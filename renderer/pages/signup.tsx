@@ -3,31 +3,70 @@ import Link from 'next/link';
 import Input from '../components/common/Input';
 import styled from 'styled-components';
 import Button from '../components/common/Button';
+import { NextPage } from 'next';
+import { ChangeEvent, FormEventHandler, useState } from 'react';
+import { useAuth } from '../context/authContext';
+import { useRouter } from 'next/router';
 
-const Signup = () => {
+const Signup: NextPage = () => {
+  const { signup } = useAuth();
+  const router = useRouter();
+
+  const [UserEmail, setUserEmail] = useState<string>('');
+  const [UserPw, setUserPw] = useState<string>('');
+  const [UserPw2, setUserPw2] = useState<string>('');
+  const [UserName, setUserName] = useState<string>('');
+
+  const handleSignup: FormEventHandler = async (e) => {
+    e.preventDefault();
+
+    try{
+      await signup(UserEmail, UserPw, UserName);
+      router.push('/home');
+    } catch(err) {
+      console.error(err);
+    }
+  }
+
   return (
     <>
       <Head>
         <title>SIGN UP - YUJOO CHAT</title>
       </Head>
       <Styled.Wrapper>
-        <form>
+        <form onSubmit={handleSignup}>
           <Styled.Title>회원가입</Styled.Title>
           <Styled.ListWrapper>
             <Styled.ListItem>
-              <Input type='text' name='userId' placeholder='아이디를 입력하세요' />
-              <label htmlFor='userId'>아이디</label>
+              <Input type='text' name='userEmail'
+                placeholder='이메일을 입력하세요' 
+                value={UserEmail}
+                onInput={(e: ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)}
+              />
+              <label htmlFor='userEmail'>이메일</label>
             </Styled.ListItem>
             <Styled.ListItem>
-              <Input type='password' name='userPw' placeholder='비밀번호를 입력하세요' />
+              <Input type='password' name='userPw'
+                placeholder='비밀번호를 입력하세요'
+                value={UserPw}
+                onInput={(e: ChangeEvent<HTMLInputElement>) => setUserPw(e.target.value)}
+              />
               <label htmlFor='userPw'>비밀번호</label>
             </Styled.ListItem>
             <Styled.ListItem>
-              <Input type='password' name='userPw2' placeholder='비밀번호를 재입력하세요' />
+              <Input type='password' name='userPw2'
+                placeholder='비밀번호를 재입력하세요'
+                value={UserPw2}
+                onInput={(e: ChangeEvent<HTMLInputElement>) => setUserPw2(e.target.value)}
+              />
               <label htmlFor='userPw2'>비밀번호 재입력</label>
             </Styled.ListItem>
             <Styled.ListItem>
-              <Input type='password' name='userName' placeholder='닉네임을 입력하세요' />
+              <Input type='text' name='userName'
+                placeholder='닉네임을 입력하세요'
+                value={UserName}
+                onInput={(e: ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)}
+              />
               <label htmlFor='userName'>닉네임</label>
             </Styled.ListItem>
             <Styled.ListItem>
