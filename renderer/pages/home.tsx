@@ -6,12 +6,10 @@ import Button from '../components/common/Button';
 import { NextPage } from 'next';
 import { ChangeEvent, FormEventHandler, useState } from 'react';
 import { useAuth } from '../context/authContext';
-import { useRouter } from 'next/router';
 import { errorMsg } from '../data/errorMsg';
 
 const Home: NextPage = () => {
   const { login } = useAuth();
-  const router = useRouter();
 
   const [UserEmail, setUserEmail] = useState<string>('');
   const [UserPw, setUserPw] = useState<string>('');
@@ -27,7 +25,6 @@ const Home: NextPage = () => {
     try{
       setLoading(true);
       await login(UserEmail, UserPw);
-      router.push('/userlist');
     } catch(err) {
       console.error(err);
       setErrorMsg(errorMsg[err.code] || errorMsg['login-defualt-error']);
