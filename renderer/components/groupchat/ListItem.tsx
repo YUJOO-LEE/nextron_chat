@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
@@ -5,7 +6,7 @@ const GroupChatListItem = ({ children }: PropsWithChildren) => {
   return (
     <Styled.Item>
       <Styled.Title>
-        {children}
+        <Link href='/group/1'>{children}</Link>
       </Styled.Title>
 
       <Styled.UserCount>
