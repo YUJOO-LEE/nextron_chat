@@ -36,7 +36,7 @@ const Styled = {
         border-radius: 50%;
         border: 2px solid rgba(255,255,255,.3);
         border-top-color: #fff;
-        animation: rotate-loading 1.5s linear 0s infinite normal;
+        animation: loading 1.5s linear 0s infinite normal;
       }
 
       @keyframes loading {
