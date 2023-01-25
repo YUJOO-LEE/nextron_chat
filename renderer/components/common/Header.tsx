@@ -5,7 +5,7 @@ import { useAuth } from '../../context/authContext';
 import Tooltip from './Tooltip';
 
 const Header = () => {
-  const { logout } = useAuth();
+  const { User, logout } = useAuth();
 
   const handleLogout: FormEventHandler = (e) => {
     e.preventDefault();
@@ -28,6 +28,16 @@ const Header = () => {
           <Tooltip left='30px'>다이렉트 메세지</Tooltip>
         </Styled.ListItem>
         <Styled.Blank />
+        <Styled.ListItem className='userinfo'>
+          <Link href='/userinfo'>
+            <a>
+              {User.photoURL ?
+                <img src={User.photoURL} alt={User.displayName} />
+                : <>{User.displayName?.slice(0,1)}</>}
+            </a>
+          </Link>
+          <Tooltip left='30px'>정보 수정</Tooltip>
+        </Styled.ListItem>
         <Styled.ListItem className='signout'>
           <a onClick={handleLogout}> </a>
           <Tooltip left='30px'>로그아웃</Tooltip>
@@ -71,6 +81,7 @@ const Styled = {
       background-position: 50%;
       background-repeat: no-repeat;
       opacity: 0.5;
+      cursor: pointer;
       
       &:hover{
         opacity: 1;
@@ -82,6 +93,23 @@ const Styled = {
       
       &.on{
         opacity: 1;
+      }
+    }
+
+    &.userinfo a{
+      width: 36px;
+      height: 36px;
+      overflow: hidden;
+      border: 2px solid #fff;
+      background-color: #000;
+      border-radius: 50%;
+      font-size: 16px;
+      color: #fff;
+
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     }
 
