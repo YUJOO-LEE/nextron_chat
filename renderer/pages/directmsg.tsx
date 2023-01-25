@@ -9,14 +9,12 @@ const DirectMsg = () => {
       <Head>
         <title>DIRECT MESSAGE - YUJOO CHAT</title>
       </Head>
-      <Layout>
-        <h1>다이렉트 메세지</h1>
-        <Styled.UserList>
-          {Array(20).fill('유저').map((item: string) => (
-            <DmListItem>{item}</DmListItem>
-          ))}
-        </Styled.UserList>
-      </Layout>
+      <h1>다이렉트 메세지</h1>
+      <Styled.UserList>
+        {Array(20).fill('유저').map((item: string, idx: number) => (
+          <DmListItem key={idx}>{item}</DmListItem>
+        ))}
+      </Styled.UserList>
     </>
   )
 }

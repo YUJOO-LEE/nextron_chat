@@ -5,6 +5,7 @@ import { AuthContextProvider } from '../context/authContext';
 import { useRouter } from 'next/router';
 import ProtectedRoute from '../components/common/ProtectedRoute';
 import UnProtectedRoute from '../components/common/UnProtectedRoute';
+import Layout from '../components/common/Layout';
 
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
@@ -24,7 +25,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         </UnProtectedRoute>
       ) : (
         <ProtectedRoute>
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </ProtectedRoute>
       )}
     </AuthContextProvider>

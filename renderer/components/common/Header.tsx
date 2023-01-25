@@ -6,7 +6,7 @@ import { useAuth } from '../../context/authContext';
 import Tooltip from './Tooltip';
 
 const Header = () => {
-  const { User, logout } = useAuth();
+  const { logout } = useAuth();
   const router = useRouter();
 
   const handleLogout: FormEventHandler = (e) => {

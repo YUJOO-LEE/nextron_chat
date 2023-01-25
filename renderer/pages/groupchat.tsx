@@ -9,14 +9,12 @@ const GroupChat = () => {
       <Head>
         <title>GROUP CHAT - YUJOO CHAT</title>
       </Head>
-      <Layout>
-        <h1>그룹 채팅</h1>
-        <Styled.UserList>
-          {Array(20).fill('채팅방').map((item: string) => (
-            <GroupChatListItem>{item}</GroupChatListItem>
-          ))}
-        </Styled.UserList>
-      </Layout>
+      <h1>그룹 채팅</h1>
+      <Styled.UserList>
+        {Array(20).fill('채팅방').map((item: string, idx: number) => (
+          <GroupChatListItem key={idx}>{item}</GroupChatListItem>
+        ))}
+      </Styled.UserList>
     </>
   )
 }
