@@ -16,15 +16,21 @@ const Signup: NextPage = () => {
   const [UserPw, setUserPw] = useState<string>('');
   const [UserPw2, setUserPw2] = useState<string>('');
   const [UserName, setUserName] = useState<string>('');
+  const [Loading, setLoading] = useState<boolean>(false);
+  const [ErrorMsg, setErrorMsg] = useState<string>('');
 
   const handleSignup: FormEventHandler = async (e) => {
     e.preventDefault();
 
     try{
+      setLoading(true);
       await signup(UserEmail, UserPw, UserName);
       router.push('/home');
     } catch(err) {
       console.error(err);
+      setErrorMsg(err.code);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -69,8 +75,14 @@ const Signup: NextPage = () => {
               />
               <label htmlFor='userName'>닉네임</label>
             </Styled.ListItem>
+
+            {ErrorMsg &&
+              <Styled.ListItem>
+                {ErrorMsg}
+              </Styled.ListItem>}
+
             <Styled.ListItem>
-              <Button type='submit' className='big green'>회원가입</Button>
+              <Button type='submit' className='big green' disabled={Loading}>회원가입</Button>
             </Styled.ListItem>
           </Styled.ListWrapper>
         </form>

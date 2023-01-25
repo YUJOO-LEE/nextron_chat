@@ -14,15 +14,21 @@ const Home: NextPage = () => {
 
   const [UserEmail, setUserEmail] = useState<string>('');
   const [UserPw, setUserPw] = useState<string>('');
+  const [Loading, setLoading] = useState<boolean>(false);
+  const [ErrorMsg, setErrorMsg] = useState<string>('');
 
   const handleLogin: FormEventHandler = async (e) => {
     e.preventDefault();
 
     try{
+      setLoading(true);
       await login(UserEmail, UserPw);
       router.push('/userlist');
     } catch(err) {
       console.error(err);
+      setErrorMsg(err.code);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -52,8 +58,14 @@ const Home: NextPage = () => {
               />
               <label htmlFor='userPw'>비밀번호</label>
             </Styled.ListItem>
+
+            {ErrorMsg &&
+              <Styled.ListItem>
+                {ErrorMsg}
+              </Styled.ListItem>}
+
             <Styled.ListItem>
-              <Button type='submit' className='big green'>로그인</Button>
+              <Button type='submit' className='big green' disabled={Loading}>로그인</Button>
             </Styled.ListItem>
           </Styled.ListWrapper>
         </form>
