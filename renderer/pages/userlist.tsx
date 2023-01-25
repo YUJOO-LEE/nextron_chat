@@ -4,7 +4,7 @@ import UserListItem from '../components/UserListItem';
 
 const UserList = () => {
   return (
-    <>
+    <div className='inner'>
       <Head>
         <title>USER LIST - YUJOO CHAT</title>
       </Head>
@@ -14,7 +14,7 @@ const UserList = () => {
           <UserListItem key={idx}>{item}</UserListItem>
         ))}
       </Styled.UserList>
-    </>
+    </div>
   )
 }
 

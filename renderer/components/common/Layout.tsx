@@ -26,10 +26,15 @@ const Styled = {
     margin-left: 60px;
     flex: 1;
     min-height: 100vh;
-    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: stretch;
+
+    .inner{
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+    }
 
     h1{
       text-align: center;

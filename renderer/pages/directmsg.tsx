@@ -1,11 +1,10 @@
 import Head from 'next/head';
 import styled from 'styled-components';
 import DmListItem from '../components/DmListItem';
-import Layout from '../components/common/Layout';
 
 const DirectMsg = () => {
   return (
-    <>
+    <div className='inner'>
       <Head>
         <title>DIRECT MESSAGE - YUJOO CHAT</title>
       </Head>
@@ -15,7 +14,7 @@ const DirectMsg = () => {
           <DmListItem key={idx}>{item}</DmListItem>
         ))}
       </Styled.UserList>
-    </>
+    </div>
   )
 }
 
