@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { FormEventHandler } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../context/authContext';
@@ -7,12 +6,10 @@ import Tooltip from './Tooltip';
 
 const Header = () => {
   const { logout } = useAuth();
-  const router = useRouter();
 
   const handleLogout: FormEventHandler = (e) => {
     e.preventDefault();
     logout();
-    router.push('/home');
   }
 
   return (
