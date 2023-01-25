@@ -23,8 +23,8 @@ export const AuthContextProvider = (
 
   const signup = async (userEmail: string, userPw: string, UserName: string) => {
     const result = await createUserWithEmailAndPassword(firebaseClientAuth, userEmail, userPw);
-    await updateProfile(firebaseClientAuth.currentUser, { displayName: UserName });
-    await set(child(ref(realtimeDB, 'users'), result.user.uid), { username: UserName });
+    await updateProfile(firebaseClientAuth.currentUser, { displayName: UserName, photoURL: '' });
+    await set(child(ref(realtimeDB, 'users'), result.user.uid), { displayName: UserName, photoURL: '' });
     return result;
   }
 
@@ -44,6 +44,7 @@ export const AuthContextProvider = (
           uid: user.uid,
           email: user.email,
           displayName: user.displayName,
+          photoURL: user.photoURL,
         });
       } else {
         setUser(null);
