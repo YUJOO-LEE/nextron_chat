@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { GlobalStyle } from '../config/GlobalStyle';
-import { AuthContextProvider } from '../context/authContext';
+import { AuthContextProvider } from '../firebase/authContext';
 import { useRouter } from 'next/router';
 import ProtectedRoute from '../components/common/ProtectedRoute';
 import UnProtectedRoute from '../components/common/UnProtectedRoute';

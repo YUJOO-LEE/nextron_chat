@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { FormEventHandler } from 'react';
 import styled from 'styled-components';
-import { useAuth } from '../../context/authContext';
+import { useAuth } from '../../firebase/authContext';
 import Tooltip from './Tooltip';
 
 const Header = () => {

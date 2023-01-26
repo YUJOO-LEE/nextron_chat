@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { PropsWithChildren, useEffect } from 'react'
-import { useAuth } from '../../context/authContext';
+import { useAuth } from '../../firebase/authContext';
 
 const UnProtectedRoute = ({ children }: PropsWithChildren) => {
   const { User } = useAuth();

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Button from '../components/common/Button';
 import { NextPage } from 'next';
 import { ChangeEvent, FormEventHandler, useState } from 'react';
-import { useAuth } from '../context/authContext';
+import { useAuth } from '../firebase/authContext';
 import { errorMsg } from '../data/errorMsg';
 
 const Signup: NextPage = () => {

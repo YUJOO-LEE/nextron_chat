@@ -3,8 +3,8 @@ import { ChangeEvent, ChangeEventHandler, FormEventHandler, useRef, useState } f
 import styled from 'styled-components';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
-import { useAuth } from '../context/authContext';
-import { uploadImageToStorage } from '../context/storage';
+import { useAuth } from '../firebase/authContext';
+import { uploadImageToStorage } from '../firebase/storage';
 
 const Userinfo = () => {
   const { User, editUserInfo } = useAuth();
