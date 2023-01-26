@@ -33,9 +33,10 @@ export const AuthContextProvider = (
   const signup = async (userEmail: string, userPw: string, userName: string) => {
     const result = await createUserWithEmailAndPassword(firebaseClientAuth, userEmail, userPw);
     const { user } = result;
+    const avatar = 'https://api.dicebear.com/5.x/bottts/png?seed=' + user.uid;
 
-    await updateProfile(firebaseClientAuth.currentUser, { displayName: userName, photoURL: '' });
-    await set(child(ref(realtimeDB, 'users'), user.uid), { displayName: userName, photoURL: '' });
+    await updateProfile(firebaseClientAuth.currentUser, { displayName: userName, photoURL: avatar });
+    await set(child(ref(realtimeDB, 'users'), user.uid), { displayName: userName, photoURL: avatar });
 
     setUser({
       uid: user.uid,

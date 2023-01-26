@@ -57,7 +57,7 @@ const Userinfo = () => {
             <Styled.Photo>
               <img src={photoURL} alt={displayName} />
             </Styled.Photo>
-            <p>
+            {/* <p>
               <Button type='button' className='gray'
                 onClick={handleChangeImage}>
                 사진 변경
@@ -68,7 +68,7 @@ const Userinfo = () => {
                 ref={inputChangeImage}
                 onChange={handleImageUpload}
               />
-            </p>
+            </p> */}
           </Styled.ListItem>
           <Styled.ListItem>
             <p>이메일</p>
