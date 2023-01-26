@@ -13,12 +13,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   const noAuthRequired = ['/', '/home', '/signup'];
 
   return (
-    <AuthContextProvider>
+    <>
       <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
       </Head> 
       <GlobalStyle />
 
+      <AuthContextProvider>
       {noAuthRequired.includes(router.pathname) ? (
         <UnProtectedRoute>
           <Component {...pageProps} />
@@ -30,7 +31,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           </Layout>
         </ProtectedRoute>
       )}
-    </AuthContextProvider>
+      </AuthContextProvider>
+    </>
   );
 }
 
