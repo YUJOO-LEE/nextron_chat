@@ -1,4 +1,4 @@
-import { ChangeEvent, EventHandler, KeyboardEventHandler, MouseEventHandler, useRef, useState } from 'react';
+import { ChangeEvent, KeyboardEventHandler, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../firebase/authContext';
 import { setNewChatRoom } from '../../firebase/realtimeDB';

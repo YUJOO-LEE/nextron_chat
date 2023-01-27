@@ -20,10 +20,12 @@ const GroupChatRoomContent = () => {
     moment(timestamp).fromNow()
   );
 
+  // 메세지 데이터 변동 시 최하단으로 스크롤
   useEffect(() => {
     messageBottom.current?.scrollIntoView({ behavior: 'smooth' });
   }, [Messages])
 
+  // 메세지 조회
   useEffect(() => {
     addMessagesListeners(roomId, setMessages);
 
@@ -40,15 +42,19 @@ const GroupChatRoomContent = () => {
           const date = timeFromNow(timestamp);
 
           return (
-            <Styled.ListItem 
-              key={timestamp}
-              className={uid === User.uid ? 'me' : undefined}
-            >
-              <p>
-                {displayName}
-                <span>{date}</span>
-              </p>
-              <Styled.Message>{content}</Styled.Message>
+            <Styled.ListItem key={timestamp}>
+              {uid !== User.uid &&
+                <Styled.Photo>
+                  <img src={photoURL} alt={displayName} />
+                </Styled.Photo>}
+              <Styled.Text
+                className={uid === User.uid ? 'me' : undefined}>
+                <p>
+                  {displayName}
+                  <span>{date}</span>
+                </p>
+                <Styled.Message>{content}</Styled.Message>
+              </Styled.Text>
             </Styled.ListItem>
           )
         })}
@@ -69,7 +75,25 @@ const Styled = {
     background: linear-gradient(0deg, #fff, #efefef);
   `,
   ListItem: styled.li`
-    margin-top: 10px;
+    margin-top: 15px;
+    display: flex;
+    gap: 5px;
+  `,
+  Photo: styled.p`
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid #00631c;
+
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  `,
+  Text: styled.p`
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -106,5 +130,6 @@ const Styled = {
     border-radius: 5px;
     background-color: #fff;
     word-break: break-all;
+    white-space: pre-wrap;
   `,
 }
