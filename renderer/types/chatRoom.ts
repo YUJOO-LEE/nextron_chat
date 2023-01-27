@@ -6,6 +6,7 @@ export type ChatRoomType = {
     photoURL: string;
   };
   totalCount: number;
+  lastUpdatedAt: number;
 }
 
 export type MessageType = {

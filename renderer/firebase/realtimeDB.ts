@@ -2,7 +2,7 @@ import { UserType } from './../types/user';
 import { child, ref, set, push, onChildAdded, off, onValue, serverTimestamp, query, orderByChild, update, get } from 'firebase/database';
 import { realtimeDB } from '../config/firebase';
 import { ChatRoomType, MessageType } from '../types/chatRoom';
-import { Dispatch, MutableRefObject, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 
 // 채팅방 생성
@@ -16,6 +16,7 @@ export const setNewChatRoom = async (roomName: string, user: UserType) => {
     roomName,
     createdBy: { displayName, photoURL },
     totalCount: 0,
+    lastUpdatedAt: serverTimestamp(),
   }
 
   await set(child(chatRoomRef, key), newChatRoom);
@@ -23,7 +24,7 @@ export const setNewChatRoom = async (roomName: string, user: UserType) => {
 
 // 채팅방 리스트 조회
 export const addChatRoomsListeners = (setChatRooms: Dispatch<SetStateAction<ChatRoomType[]>>) => {
-  const chatRoomRef = query(ref(realtimeDB, 'chatroom'), orderByChild('totalCount'));
+  const chatRoomRef = query(ref(realtimeDB, 'chatroom'), orderByChild('lastUpdatedAt'));
   const chatRooms = [];
 
   onChildAdded(chatRoomRef, (data) => {
@@ -61,9 +62,12 @@ export const addNewMessage = async (
   const newMsg = createMessage(user, content);
   await set(push(child(messagesRef, roomId)), newMsg);
 
-  const chatRoomRef = ref(realtimeDB, 'chatroom/' + roomId);
-  const getCount = await (await get(child(chatRoomRef, 'totalCount'))).val() || 0;
-  await update(ref(realtimeDB, 'chatroom/' + roomId), {totalCount: getCount + 1});
+  const chatRoomRef = ref(realtimeDB, 'chatroom/' + roomId + '/totalCount');
+  const totalCount = await (await get(chatRoomRef)).val();
+  await update(ref(realtimeDB, 'chatroom/' + roomId), {
+    totalCount: totalCount + 1,
+    lastUpdatedAt: serverTimestamp(),
+  });
 }
 
 // 새 메세지 생성
