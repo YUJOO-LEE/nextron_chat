@@ -1,12 +1,37 @@
-import styled from "styled-components";
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { getChatRoomData } from '../../firebase/realtimeDB';
+import { ChatRoomType } from '../../types/chatRoom';
 
-const GroupChatRoomHeader = ({ msgCount = 0 }: { msgCount?: number }) => {
+const GroupChatRoomHeader = () => {
+  const router = useRouter();
+  const { roomId } = router.query;
+  const [ChatRoomData, setChatRoomData] = useState<ChatRoomType>(null);
+
+  useEffect(() => {
+    getChatRoomData(roomId, setChatRoomData);
+  }, []);
+
   return (
     <Styled.Wrapper>
-      <h2>방 이름</h2>
-      <p>
-        {msgCount} messages
-      </p>
+      {ChatRoomData &&
+      <>
+        <Styled.Title>
+          <Styled.RoomIcon>
+            <img src={ChatRoomData.createdBy.photoURL} alt={ChatRoomData.createdBy.displayName} />
+          </Styled.RoomIcon>
+          <span>{ChatRoomData.roomName}</span>
+        </Styled.Title>
+        <Styled.Side>
+          <Styled.Creater>
+            {ChatRoomData.createdBy.displayName}
+          </Styled.Creater>
+          <Styled.Counter>
+            0 messages
+          </Styled.Counter>
+        </Styled.Side>
+      </>}
     </Styled.Wrapper>
   )
 }
@@ -15,15 +40,42 @@ export default GroupChatRoomHeader;
 
 const Styled = {
   Wrapper: styled.div`
-    padding: 20px;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
-    padding-bottom: 10px;
     border-bottom: 1px solid #ddd;
+  `,
+  Title: styled.h2`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  `,
+  RoomIcon: styled.i`
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border: 1px solid #00631c;
+    border-radius: 50%;
 
-    p{
-      font-size: 14px;
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
+  `,
+  Side: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+  `,
+  Creater: styled.p`
+    padding: 2px 5px;
+    background-color: #efefef;
+    border-radius: 5px;
+    font-size: 14px;
+  `,
+  Counter: styled.p`
+    font-size: 12px;
   `,
 }
