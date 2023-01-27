@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEventHandler, useRef, useState } from 'react';
+import { ChangeEvent, EventHandler, KeyboardEventHandler, MouseEventHandler, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../firebase/authContext';
 import { setNewChatRoom } from '../../firebase/realtimeDB';
@@ -18,7 +18,13 @@ const GroupChatHeader = ({ totalCount = 0 }: { totalCount?: number}) => {
     toggleModal(true);
   }
 
-  const handleAddRoom: MouseEventHandler<HTMLButtonElement> = () => {
+  const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if (e.code !== 'Enter') return;
+    e.preventDefault();
+    handleAddRoom();
+  }
+
+  const handleAddRoom = () => {
     const inputElment = roomNameInput.current.firstElementChild;
     if (!RoomName) {
       inputElment.classList.add('error');
@@ -55,9 +61,11 @@ const GroupChatHeader = ({ totalCount = 0 }: { totalCount?: number}) => {
         <Styled.ModalInner>
           <h2>방 만들기</h2>
           <div ref={roomNameInput}>
-            <Input type='text' placeholder='방 제목을 입력하세요' 
+            <Input type='text' autoFocus
+              placeholder='방 제목을 입력하세요' 
               value={RoomName}
               onInput={(e: ChangeEvent<HTMLInputElement>) => setRoomName(e.target.value)}
+              onKeyDown={onKeyDown}
             />
           </div>
         </Styled.ModalInner>
