@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Textarea from '../../components/common/Textarea';
+import MessageInput from '../../components/groupchat/MessageInput';
 import GroupChatRoomContent from '../../components/groupchat/RoomContent';
 import GroupChatRoomHeader from '../../components/groupchat/RoomHeader';
 
@@ -8,9 +8,7 @@ const GroupChatPage = () => {
     <Styled.Wrapper>
       <GroupChatRoomHeader />
       <GroupChatRoomContent />
-      <Styled.InputMsg>
-        <Textarea></Textarea>
-      </Styled.InputMsg>
+      <MessageInput />
     </Styled.Wrapper>
   )
 }
@@ -24,9 +22,5 @@ const Styled = {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-  `,
-  InputMsg: styled.div`
-    width: 100%;
-    padding: 10px 10px 10px;
   `,
 }

@@ -28,7 +28,7 @@ const GroupChatRoomHeader = () => {
             {ChatRoomData.createdBy.displayName}
           </Styled.Creater>
           <Styled.Counter>
-            0 messages
+            {ChatRoomData.totalCount} messages
           </Styled.Counter>
         </Styled.Side>
       </>}

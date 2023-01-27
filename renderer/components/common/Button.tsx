@@ -29,8 +29,8 @@ const Styled = {
         content: '';
         display: block;
         position: absolute;
-        top: 8px;
-        left: 130px;
+        top: 50%;
+        left: 50%;
         height: 20px;
         width: 20px;
         border-radius: 50%;
@@ -41,10 +41,10 @@ const Styled = {
 
       @keyframes loading {
         0%  {
-          transform: rotate(0deg);
+          transform: translate(-50%, -50%) rotate(0deg);
         }
         100% {
-          transform: rotate(360deg);
+          transform: translate(-50%, -50%) rotate(360deg);
         }
       }
     }

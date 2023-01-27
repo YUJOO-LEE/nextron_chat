@@ -1,71 +1,59 @@
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { useAuth } from '../../firebase/authContext';
+import { addMessagesListeners, offMessagesListeners } from '../../firebase/realtimeDB';
+import { MessageType } from '../../types/chatRoom';
+import moment from 'moment';
 
 const GroupChatRoomContent = () => {
+
+  const { User } = useAuth();
+  const router = useRouter();
+  const { roomId } = router.query;
+
+  const messageBottom = useRef<HTMLDivElement>(null);
+  const [Messages, setMessages] = useState<MessageType[]>([]);
+
+  // 타임스탬프 문자로 변환
+  const timeFromNow = (timestamp: number) => (
+    moment(timestamp).fromNow()
+  );
+
+  useEffect(() => {
+    messageBottom.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [Messages])
+
+  useEffect(() => {
+    addMessagesListeners(roomId, setMessages);
+
+    return (() => {
+      offMessagesListeners();
+    })
+  }, []);
+
   return (
     <Styled.ListWrapper>
-      <Styled.ListItem>
-        <p>
-          UserName
-          <span>time</span>
-        </p>
-        <Styled.Message>Message!</Styled.Message>
-      </Styled.ListItem>
-        <Styled.ListItem>
-          <p>
-            UserName
-            <span>time</span>
-          </p>
-          <Styled.Message>Message!</Styled.Message>
-        </Styled.ListItem>
-        <Styled.ListItem>
-          <p>
-            UserName
-            <span>time</span>
-          </p>
-          <Styled.Message>Message!</Styled.Message>
-        </Styled.ListItem>
-        <Styled.ListItem>
-          <p>
-            UserName
-            <span>time</span>
-          </p>
-          <Styled.Message>Message!Message!Message!Message!Message!Message!Message!Message!Message!Message!Message!Message!Message!Message!Message!Message!</Styled.Message>
-        </Styled.ListItem>
-      <Styled.ListItem>
-        <p>
-          UserName
-          <span>time</span>
-        </p>
-        <Styled.Message>Message!</Styled.Message>
-      </Styled.ListItem>
-      <Styled.ListItem>
-        <p>
-          UserName
-          <span>time</span>
-        </p>
-        <Styled.Message>Message!</Styled.Message>
-      </Styled.ListItem>
-      <Styled.ListItem className='me'>
-        <p>
-          UserName
-          <span>time</span>
-        </p>
-        <Styled.Message>Message!</Styled.Message>
-      </Styled.ListItem>
-      <Styled.ListItem className='me'>
-        <p>
-          UserName
-          <span>time</span>
-        </p>
-        <Styled.Message>Message!</Styled.Message>
-      </Styled.ListItem>
-      <Styled.ListItem className='me'>
-        <p>
-          UserName
-          <span>time</span>
-        </p>
-        <Styled.Message>Message!</Styled.Message>
-      </Styled.ListItem>
+      {Messages.length > 0 && <>
+        {Messages.map(({ content, user, timestamp }) => {
+          const { displayName, photoURL, uid } = user;
+          const date = timeFromNow(timestamp);
+
+          return (
+            <Styled.ListItem 
+              key={timestamp}
+              className={uid === User.uid ? 'me' : undefined}
+            >
+              <p>
+                {displayName}
+                <span>{date}</span>
+              </p>
+              <Styled.Message>{content}</Styled.Message>
+            </Styled.ListItem>
+          )
+        })}
+        <div ref={messageBottom} />
+      </>}
     </Styled.ListWrapper>
   )
 }
