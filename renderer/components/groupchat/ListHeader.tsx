@@ -18,12 +18,14 @@ const GroupChatHeader = ({ totalCount = 0 }: { totalCount?: number}) => {
     toggleModal(true);
   }
 
+  // input 에서 엔터 입력 시 방생성 실행
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.code !== 'Enter') return;
     e.preventDefault();
     handleAddRoom();
   }
 
+  // 방 생성 처리
   const handleAddRoom = () => {
     const inputElment = roomNameInput.current.firstElementChild;
     if (!RoomName) {
