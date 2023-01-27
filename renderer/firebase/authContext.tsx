@@ -1,24 +1,9 @@
-import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, UserCredential, updateProfile } from '@firebase/auth';
+import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from '@firebase/auth';
 import { child, ref, set, update } from 'firebase/database';
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { firebaseClientAuth, realtimeDB } from '../config/firebase';
-import type { UserType } from '../types/user';
+import type { ContextType, EditUserPayload, UserType } from '../types/user';
 import { uploadImageToStorage } from './storage';
-
-type ContextType = {
-  User?: UserType;
-  signup?: (userEmail: string, userPw: string, userName: string) => Promise<UserCredential>;
-  login?: (userEmail: string, userPw: string) => Promise<UserCredential>;
-  logout?: () => Promise<void>;
-  editUserInfo?: (payload: EditUserPayload) => Promise<boolean>;
-  uploadImage?: (uid: string, file: File) => Promise<string>;
-}
-
-type EditUserPayload = {
-  uid: string;
-  type: string;
-  value: string;
-}
 
 const AuthContext = createContext<ContextType>({});
 
@@ -30,18 +15,21 @@ export const AuthContextProvider = (
   const [User, setUser] = useState<UserType>(null);
   const [Loading, setLoading] = useState<boolean>(true);
 
+  // 회원가입 실행
   const signup = async (userEmail: string, userPw: string, userName: string) => {
     const result = await createUserWithEmailAndPassword(firebaseClientAuth, userEmail, userPw);
     const { user } = result;
     const avatar = 'https://api.dicebear.com/5.x/bottts/png?seed=' + user.uid;
-
     await updateProfile(firebaseClientAuth.currentUser, { 
       displayName: userName, photoURL: avatar 
     });
+
+    // DB 저장
     await set(child(ref(realtimeDB, 'users'), user.uid), { 
       uid: user.uid, displayName: userName, photoURL: avatar 
     });
 
+    // State 저장
     setUser({
       uid: user.uid,
       email: user.email,
@@ -52,15 +40,18 @@ export const AuthContextProvider = (
     return result;
   }
 
+  // 로그인
   const login = (userEmail: string, userPw: string) => {
     return signInWithEmailAndPassword(firebaseClientAuth, userEmail, userPw);
   }
 
+  // 로그아웃
   const logout = async () => {
     await signOut(firebaseClientAuth);
     setUser(null);
   }
 
+  // 정보 수정
   const editUserInfo = async ({uid, type, value }: EditUserPayload) => {
     const data = Object();
     data[type] = value;
@@ -72,6 +63,7 @@ export const AuthContextProvider = (
     return true;
   }
 
+  // 프로필 사진 업로드 (미완)
   const uploadImage = async (uid: string, file: File) => {
     const photoURL = await uploadImageToStorage(uid, file);
     await editUserInfo({ uid, type: 'photoURL' , value: photoURL });
@@ -79,6 +71,7 @@ export const AuthContextProvider = (
     return photoURL;
   }
 
+  // 로그인 검증 후 state 에 반영
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseClientAuth, (user) => {
       if (user) {
@@ -98,6 +91,7 @@ export const AuthContextProvider = (
   }, []);
   
 
+  // User 관련 메서드 전역에서 사용하도록 전달
   return (
     <AuthContext.Provider value={{User, signup, login, logout, editUserInfo, uploadImage}}>
       {Loading ? 'loading...' : children}
