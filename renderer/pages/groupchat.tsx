@@ -1,18 +1,31 @@
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import GroupChatHeader from '../components/groupchat/ListHeader';
 import GroupChatListItem from '../components/groupchat/ListItem';
+import { addChatRoomsListeners, offChatRoomsListeners } from '../firebase/realtimeDB';
+import { ChatRoomType } from '../types/chatRoom';
 
 const GroupChat = () => {
+  const [ChatRooms, setChatRooms] = useState<ChatRoomType[]>([]);
+
+  useEffect(() => {
+    addChatRoomsListeners(setChatRooms);
+
+    return () => {
+      offChatRoomsListeners();
+    }
+  }, []);
+
   return (
     <div className='inner'>
       <Head>
         <title>GROUP CHAT - YUJOO CHAT</title>
       </Head>
-      <GroupChatHeader />
+      <GroupChatHeader totalCount={ChatRooms.length} />
       <Styled.UserList>
-        {Array(20).fill('채팅방').map((item: string, idx: number) => (
-          <GroupChatListItem key={idx}>{item}</GroupChatListItem>
+        {ChatRooms.length > 0 && ChatRooms.map(item => (
+          <GroupChatListItem key={item.id} {...item} />
         ))}
       </Styled.UserList>
     </div>

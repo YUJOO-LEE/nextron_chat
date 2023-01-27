@@ -1,17 +1,17 @@
 import Link from 'next/link';
-import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
+import { ChatRoomType } from '../../types/chatRoom';
 
-const GroupChatListItem = ({ children }: PropsWithChildren) => {
+const GroupChatListItem = ({ id, roomName, createdBy }: ChatRoomType) => {
   return (
     <Styled.Item>
       <Styled.Title>
-        <Link href='/group/1'>{children}</Link>
+        <Link href={`/group/${id}`}>{roomName}</Link>
       </Styled.Title>
 
       <Styled.UserCount>
         <Styled.Icon />
-        <span>10</span>
+        <span>{createdBy.displayName}</span>
       </Styled.UserCount>
     </Styled.Item>
   )

@@ -1,11 +1,14 @@
 import { ChangeEvent, MouseEventHandler, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { useAuth } from '../../firebase/authContext';
+import { setNewChatRoom } from '../../firebase/realtimeDB';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import { StyledModal } from '../common/Modal';
 
 const GroupChatHeader = ({ totalCount = 0 }: { totalCount?: number}) => {
 
+  const { User } = useAuth();
   const roomNameInput = useRef<HTMLInputElement>(null);
   const [ModalShown, toggleModal] = useState<boolean>(false);
   const [RoomName, setRoomName] = useState<string>('');
@@ -24,7 +27,13 @@ const GroupChatHeader = ({ totalCount = 0 }: { totalCount?: number}) => {
 
     inputElment.classList.remove('error');
 
-    // 저장
+    try{
+      setNewChatRoom(RoomName, User);
+      setRoomName('');
+      toggleModal(false);
+    } catch(err) {
+      console.error(err);
+    }
   }
 
   return (
