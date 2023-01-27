@@ -1,5 +1,5 @@
 import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, UserCredential, updateProfile } from '@firebase/auth';
-import { child, ref, set } from 'firebase/database';
+import { child, ref, set, update } from 'firebase/database';
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { firebaseClientAuth, realtimeDB } from '../config/firebase';
 import type { UserType } from '../types/user';
@@ -66,7 +66,7 @@ export const AuthContextProvider = (
     data[type] = value;
 
     await updateProfile(firebaseClientAuth.currentUser, data);
-    await set(child(ref(realtimeDB, 'users'), uid), data);
+    await update(child(ref(realtimeDB, 'users'), uid), data);
     setUser({ ...User, ...data });
 
     return true;
