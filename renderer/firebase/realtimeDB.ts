@@ -1,9 +1,37 @@
 import { UserType } from './../types/user';
-import { child, ref, set, push, onChildAdded, off, onValue, serverTimestamp, query, orderByChild, update, get } from 'firebase/database';
+import { child, ref, set, push, onChildAdded, off, onValue, serverTimestamp, query, orderByChild, update, get, onChildChanged } from 'firebase/database';
 import { realtimeDB } from '../config/firebase';
 import { ChatRoomType, MessageType } from '../types/chatRoom';
 import { Dispatch, SetStateAction } from 'react';
 
+
+// 유저 리스트 조회
+export const userListListeners = (setUserList: Dispatch<SetStateAction<UserType[]>>) => {
+  const userListRef = ref(realtimeDB, 'users');
+  const userList = {};
+
+  onChildAdded(userListRef, (data) => {
+    userList[data.val().uid] = data.val();
+    
+    setTimeout(() => {
+      setUserList(Object.values(userList));
+    }, 200);
+  });
+
+  onChildChanged(userListRef, (data) => {
+    userList[data.val().uid] = data.val();
+    
+    setTimeout(() => {
+      setUserList(Object.values(userList));
+    }, 200);
+  });
+}
+
+// 유저리스트 감시 종료
+export const offuserListListeners = () => {
+  const userListRef = ref(realtimeDB, 'users');
+  off(userListRef);
+}
 
 // 채팅방 생성
 export const setNewChatRoom = async (roomName: string, user: UserType) => {

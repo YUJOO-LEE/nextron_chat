@@ -1,8 +1,24 @@
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import UserListItem from '../components/UserListItem';
+import UserListItem from '../components/userlist/ListItem';
+import { useAuth } from '../firebase/authContext';
+import { offuserListListeners, userListListeners } from '../firebase/realtimeDB';
+import { UserType } from '../types/user';
 
 const UserList = () => {
+
+  const { User } = useAuth();
+  const [UserList, setUserList] = useState<Pick<UserType, 'uid' | 'displayName' | 'photoURL'>[]>([]);
+
+  useEffect(() => {
+    userListListeners(setUserList);
+
+    return () => {
+      offuserListListeners();
+    }
+  }, []);
+
   return (
     <div className='inner'>
       <Head>
@@ -10,9 +26,11 @@ const UserList = () => {
       </Head>
       <h1>유저 리스트</h1>
       <Styled.UserList>
-        {Array(20).fill('유저').map((item: string, idx: number) => (
-          <UserListItem key={idx}>{item}</UserListItem>
-        ))}
+        {UserList
+          .filter(({uid}) => uid !== User.uid)
+          .map((user) => (
+            <UserListItem key={user.uid} {...user} />
+          ))}
       </Styled.UserList>
     </div>
   )

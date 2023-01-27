@@ -1,14 +1,21 @@
-import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
+import { UserType } from '../../types/user';
 
-const UserListItem = ({ children }: PropsWithChildren) => {
+const UserListItem = ({
+  displayName, photoURL
+}: Pick<UserType, 'uid' | 'displayName' | 'photoURL'>
+) => {
   return (
     <Styled.Item>
-      {/* <Styled.Icon /> */}
-      <Styled.Title>
-        {children}
-      </Styled.Title>
-      <Styled.DmBtn />
+      <Styled.Icon>
+        <img src={photoURL} alt={displayName} />
+      </Styled.Icon>
+      <Styled.Content>
+        <Styled.Title>
+          {displayName}
+        </Styled.Title>
+        <Styled.DmBtn />
+      </Styled.Content>
     </Styled.Item>
   )
 }
@@ -17,14 +24,34 @@ export default UserListItem;
 
 const Styled = {
   Item: styled.li`
+    position: relative;
     width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px 15px;
+  `,
+  Icon: styled.p`
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid #00631c;
+    background-color: #fff;
+
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  `,
+  Content: styled.p`
+    margin: 5px 0 5px 30px;
+    flex: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 10px 10px 30px;
   `,
   Title: styled.p`
     flex: 1;
