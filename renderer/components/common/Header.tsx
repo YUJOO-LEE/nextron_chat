@@ -16,7 +16,7 @@ const Header = () => {
     <Styled.Wrapper>
       <Styled.ListWrapper>
         <Styled.ListItem className='userlist'>
-          <Link href='/userlist'> </Link>
+          <Link href='/user/userlist'> </Link>
           <Tooltip left='30px'>유저 리스트</Tooltip>
         </Styled.ListItem>
         <Styled.ListItem className='groupchat'>
@@ -29,7 +29,7 @@ const Header = () => {
         </Styled.ListItem>
         <Styled.Blank />
         <Styled.ListItem className='userinfo'>
-          <Link href='/userinfo'>
+          <Link href='/user/userinfo'>
             <a>
               {User.photoURL ?
                 <img src={User.photoURL} alt={User.displayName} />

@@ -8,7 +8,7 @@ const UnProtectedRoute = ({ children }: PropsWithChildren) => {
   
   useEffect(() => {
     if (!!User) {
-      router.push('/userlist');
+      router.push('/user/userlist');
     }
   }, [User]);
 

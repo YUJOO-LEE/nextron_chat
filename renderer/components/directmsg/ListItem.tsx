@@ -13,7 +13,7 @@ const DmListItem = ({ id, totalCount, users }: DmRoomType) => {
 
       <Styled.Content>
         <Styled.Title>
-          <Link href={`/dm/${id}`}>{displayName}</Link>
+          <Link href={`/directmsg/${id}`}>{displayName}</Link>
         </Styled.Title>
 
         <Styled.UserCount>
@@ -67,11 +67,11 @@ const Styled = {
     border-radius: 5px;
     padding: 10px 10px 10px 30px;
   `,
-  Title: styled.p`
+  Title: styled.span`
     flex: 1;
     color: #444;
   `,
-  UserCount: styled.p`
+  UserCount: styled.span`
     display: flex;
     align-items: center;
     gap: 5px;

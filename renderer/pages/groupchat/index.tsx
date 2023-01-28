@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import GroupChatHeader from '../components/groupchat/ListHeader';
-import GroupChatListItem from '../components/groupchat/ListItem';
-import { addChatRoomsListeners, offChatRoomsListeners } from '../firebase/realtimeDB';
-import { ChatRoomType } from '../types/chatRoom';
+import GroupChatHeader from '../../components/groupchat/ListHeader';
+import GroupChatListItem from '../../components/groupchat/ListItem';
+import { addChatRoomsListeners, offChatRoomsListeners } from '../../firebase/realtimeDB';
+import { ChatRoomType } from '../../types/chatRoom';
 
 const GroupChat = () => {
   const [ChatRooms, setChatRooms] = useState<ChatRoomType[]>([]);

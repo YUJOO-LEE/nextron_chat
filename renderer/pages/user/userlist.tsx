@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import UserListItem from '../components/userlist/ListItem';
-import { useAuth } from '../firebase/authContext';
-import { offuserListListeners, userListListeners } from '../firebase/realtimeDB';
-import { UserType } from '../types/user';
+import UserListItem from '../../components/userlist/ListItem';
+import { useAuth } from '../../firebase/authContext';
+import { offuserListListeners, userListListeners } from '../../firebase/realtimeDB';
+import { UserType } from '../../types/user';
 
 const UserList = () => {
 

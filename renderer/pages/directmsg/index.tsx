@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import DmListItem from '../components/directmsg/ListItem';
-import { useAuth } from '../firebase/authContext';
-import { dmListListeners, offDmListListeners } from '../firebase/realtimeDB';
-import { DmRoomType } from '../types/chatRoom';
+import DmListItem from '../../components/directmsg/ListItem';
+import { useAuth } from '../../firebase/authContext';
+import { dmListListeners, offDmListListeners } from '../../firebase/realtimeDB';
+import { DmRoomType } from '../../types/chatRoom';
 
 const DirectMsg = () => {
 

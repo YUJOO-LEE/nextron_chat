@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import { ChangeEvent, ChangeEventHandler, FormEventHandler, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Button from '../components/common/Button';
-import Input from '../components/common/Input';
-import { useAuth } from '../firebase/authContext';
-import { uploadImageToStorage } from '../firebase/storage';
+import Button from '../../components/common/Button';
+import Input from '../../components/common/Input';
+import { useAuth } from '../../firebase/authContext';
+import { uploadImageToStorage } from '../../firebase/storage';
 
 const Userinfo = () => {
   const { User, editUserInfo } = useAuth();

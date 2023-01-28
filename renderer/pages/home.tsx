@@ -74,9 +74,6 @@ const Home: NextPage = () => {
           <span>아직 회원가입을 하지 않으셨나요?</span>
           <Link href='/signup'>회원가입</Link>
         </Styled.Signup>
-
-        {/* 테스트용 */}
-        <Link href='/userlist'>채팅</Link>
       </Styled.Wrapper>
     </>
   );

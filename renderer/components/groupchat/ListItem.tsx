@@ -6,7 +6,7 @@ const GroupChatListItem = ({ id, roomName, createdBy, totalCount }: ChatRoomType
   return (
     <Styled.Item>
       <Styled.Title>
-        <Link href={`/group/${id}`}>{roomName}</Link>
+        <Link href={`/groupchat/${id}`}>{roomName}</Link>
       </Styled.Title>
 
       <Styled.UserCount>
