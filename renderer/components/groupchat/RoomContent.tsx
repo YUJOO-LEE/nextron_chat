@@ -46,10 +46,10 @@ const GroupChatRoomContent = ({ roomId }: { roomId: string }) => {
                 </Styled.Photo>}
               <Styled.Text
                 className={uid === User.uid ? 'me' : undefined}>
-                <p>
+                <span>
                   {displayName}
                   <span>{date}</span>
-                </p>
+                </span>
                 <Styled.Message>{content}</Styled.Message>
               </Styled.Text>
             </Styled.ListItem>
@@ -96,7 +96,7 @@ const Styled = {
     align-items: flex-start;
     gap: 5px;
 
-    p{
+    span{
       font-size: 14px;
 
       span{
@@ -108,7 +108,7 @@ const Styled = {
 
     &.me{
       align-self: flex-end;
-      p{
+      >span{
         align-self: flex-end;
         &:first-of-type{
           font-size: 0;
@@ -120,7 +120,7 @@ const Styled = {
       }
     }
   `,
-  Message: styled.p`
+  Message: styled.span`
     width: fit-content;
     padding: 8px;
     border: 1px solid #ddd;
