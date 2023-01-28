@@ -19,7 +19,7 @@ const UserListItem = (userData: Pick<UserType, 'uid' | 'displayName' | 'photoURL
     }
 
     // DM 방으로 이동
-    router.push('/directmsg/' + uid);
+    router.push('/directmsg/' + roomId);
   }
 
   return (
