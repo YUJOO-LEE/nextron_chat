@@ -1,12 +1,9 @@
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getChatRoomData } from '../../firebase/realtimeDB';
 import { ChatRoomType } from '../../types/chatRoom';
 
-const GroupChatRoomHeader = () => {
-  const router = useRouter();
-  const { roomId } = router.query;
+const GroupChatRoomHeader = ({ roomId }: { roomId: string }) => {
   const [ChatRoomData, setChatRoomData] = useState<ChatRoomType>(null);
 
   useEffect(() => {

@@ -1,14 +1,19 @@
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import MessageInput from '../../components/groupchat/MessageInput';
 import GroupChatRoomContent from '../../components/groupchat/RoomContent';
 import GroupChatRoomHeader from '../../components/groupchat/RoomHeader';
 
 const GroupChatPage = () => {
+  const router = useRouter();
+  const { roomId } = router.query;
+  const stringRoomId = Array.isArray(roomId) ? roomId[0] : roomId;
+
   return (
     <Styled.Wrapper>
-      <GroupChatRoomHeader />
-      <GroupChatRoomContent />
-      <MessageInput />
+      <GroupChatRoomHeader roomId={stringRoomId} />
+      <GroupChatRoomContent roomId={stringRoomId} />
+      <MessageInput roomId={stringRoomId} />
     </Styled.Wrapper>
   )
 }

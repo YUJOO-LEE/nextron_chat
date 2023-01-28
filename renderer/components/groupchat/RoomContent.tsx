@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../firebase/authContext';
@@ -6,11 +5,9 @@ import { addMessagesListeners, offMessagesListeners } from '../../firebase/realt
 import { MessageType } from '../../types/chatRoom';
 import moment from 'moment';
 
-const GroupChatRoomContent = () => {
+const GroupChatRoomContent = ({ roomId }: { roomId: string }) => {
 
   const { User } = useAuth();
-  const router = useRouter();
-  const { roomId } = router.query;
 
   const messageBottom = useRef<HTMLDivElement>(null);
   const [Messages, setMessages] = useState<MessageType[]>([]);

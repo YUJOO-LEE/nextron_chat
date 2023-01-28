@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { ChangeEvent, FormEventHandler, KeyboardEventHandler, useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../firebase/authContext';
@@ -6,12 +5,9 @@ import { addNewMessage } from '../../firebase/realtimeDB';
 import Button from '../common/Button';
 import Textarea from '../common/Textarea';
 
-const MessageInput = () => {
+const MessageInput = ({ roomId }: { roomId: string }) => {
 
   const { User } = useAuth();
-  const router = useRouter();
-  const { roomId } = router.query;
-
   const [Message, setMessage] = useState<string>('');
   const [Loading, setLoading] = useState<boolean>(false);
 
