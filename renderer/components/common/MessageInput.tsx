@@ -30,7 +30,7 @@ const MessageInput = ({ roomId }: { roomId: string }) => {
     setLoading(true);
 
     try {
-      await addNewMessage(roomId, User, Message);
+      await addNewMessage(roomId, User, Message, (roomId.length === 57));
       setMessage('');
     } catch(err) {
       console.error(err);

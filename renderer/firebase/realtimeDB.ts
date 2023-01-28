@@ -71,7 +71,11 @@ export const offChatRoomsListeners = () => {
 }
 
 // 채팅방 정보 조회
-export const getChatRoomData = (roomId: string | string[], setChatRoomData: Dispatch<SetStateAction<ChatRoomType>>, isPrivateRoom?: true) => { 
+export const getChatRoomData = (
+  roomId: string | string[],
+  setChatRoomData: Dispatch<SetStateAction<ChatRoomType>>,
+  isPrivateRoom?: boolean
+  ) => { 
   roomId = Array.isArray(roomId) ? roomId[0] : roomId;
   const roomType = isPrivateRoom ? 'dmroom/' : 'chatroom/';
   const chatRoomRef = ref(realtimeDB, roomType + roomId);
@@ -82,17 +86,23 @@ export const getChatRoomData = (roomId: string | string[], setChatRoomData: Disp
 
 // 메세지 저장
 export const addNewMessage = async (
-  roomId: string | string[], user: UserType, content: string
+  roomId: string | string[],
+  user: UserType,
+  content: string,
+  isPrivateRoom?: boolean,
 ) => {
   roomId = Array.isArray(roomId) ? roomId[0] : roomId;
+  const roomType = isPrivateRoom ? 'dmroom/' : 'chatroom/';
 
+  // 메세지 저장
   const messagesRef = ref(realtimeDB, 'messages');
   const newMsg = createMessage(user, content);
   await set(push(child(messagesRef, roomId)), newMsg);
 
-  const chatRoomRef = ref(realtimeDB, 'chatroom/' + roomId + '/totalCount');
-  const totalCount = await (await get(chatRoomRef)).val();
-  await update(ref(realtimeDB, 'chatroom/' + roomId), {
+  // 방 정보 업데이트
+  const chatRoomRef = ref(realtimeDB, roomType + roomId);
+  const totalCount = await (await get(child(chatRoomRef, '/totalCount'))).val();
+  await update(chatRoomRef, {
     totalCount: totalCount + 1,
     lastUpdatedAt: serverTimestamp(),
   });
