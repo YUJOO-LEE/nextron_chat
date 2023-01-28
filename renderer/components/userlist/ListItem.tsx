@@ -1,9 +1,7 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../firebase/authContext';
-import { checkRoomData, getChatRoomData, getDmRoomID, setNewDmRoom } from '../../firebase/realtimeDB';
-import { ChatRoomType } from '../../types/chatRoom';
+import { checkRoomData, getDmRoomID, setNewDmRoom } from '../../firebase/realtimeDB';
 import { UserType } from '../../types/user';
 
 const UserListItem = (userData: Pick<UserType, 'uid' | 'displayName' | 'photoURL'>
