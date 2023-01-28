@@ -75,7 +75,7 @@ export const offChatRoomsListeners = () => {
 // 채팅방 정보 조회
 export const getChatRoomData = (
   roomId: string | string[],
-  setChatRoomData: Dispatch<SetStateAction<ChatRoomType>>,
+  setChatRoomData: Dispatch<SetStateAction<ChatRoomType | DmRoomType>>,
   isPrivateRoom?: boolean
   ) => { 
   roomId = Array.isArray(roomId) ? roomId[0] : roomId;

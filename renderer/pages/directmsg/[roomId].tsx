@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import MessageInput from '../../components/common/MessageInput';
 import Messages from '../../components/common/Messages';
+import DmRoomHeader from '../../components/directmsg/RoomHeader';
 import { getChatRoomData } from '../../firebase/realtimeDB';
-import { ChatRoomType } from '../../types/chatRoom';
+import { DmRoomType } from '../../types/chatRoom';
 
 const DmPage = () => {
 
@@ -12,18 +13,19 @@ const DmPage = () => {
   const { roomId } = router.query;
   const stringRoomId = Array.isArray(roomId) ? roomId[0] : roomId;
 
-  const [DmRoomData, setDmRoomData] = useState<ChatRoomType>(null);
+  const [DmRoomData, setDmRoomData] = useState<DmRoomType>(null);
 
   useEffect(() => {
     getChatRoomData(stringRoomId, setDmRoomData, true);
   }, []);
 
-  console.log(DmRoomData);
-
   return (
     <Styled.Wrapper>
-      <Messages roomId={stringRoomId} />
-      <MessageInput roomId={stringRoomId} />
+      {DmRoomData && <>
+        <DmRoomHeader {...DmRoomData} />
+        <Messages roomId={stringRoomId} />
+        <MessageInput roomId={stringRoomId} />
+      </>}
     </Styled.Wrapper>
   )
 }
