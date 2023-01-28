@@ -18,3 +18,9 @@ export type MessageType = {
     uid: String;
   }
 }
+
+export type DmRoomType = {
+  id: string;
+  totalCount: number;
+  lastUpdatedAt: number;
+}

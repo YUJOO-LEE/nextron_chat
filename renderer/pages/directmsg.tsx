@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import styled from 'styled-components';
-import DmListItem from '../components/DmListItem';
+import DmListItem from '../components/directmsg/ListItem';
 
 const DirectMsg = () => {
   return (

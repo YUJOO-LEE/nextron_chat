@@ -71,10 +71,10 @@ export const offChatRoomsListeners = () => {
 }
 
 // 채팅방 정보 조회
-export const getChatRoomData = (roomId: string | string[], setChatRoomData: Dispatch<SetStateAction<ChatRoomType>>) => { 
+export const getChatRoomData = (roomId: string | string[], setChatRoomData: Dispatch<SetStateAction<ChatRoomType>>, isPrivateRoom?: true) => { 
   roomId = Array.isArray(roomId) ? roomId[0] : roomId;
-
-  const chatRoomRef = ref(realtimeDB, 'chatroom/' + roomId);
+  const roomType = isPrivateRoom ? 'dmroom/' : 'chatroom/';
+  const chatRoomRef = ref(realtimeDB, roomType + roomId);
   onValue(chatRoomRef, (data) => {
     setChatRoomData(data.val());
   })
@@ -138,4 +138,57 @@ export const addMessagesListeners = (
 export const offMessagesListeners = () => {
   const messagesRef = ref(realtimeDB, 'messages');
   off(messagesRef);
+}
+
+// DM 방 생성
+export const setNewDmRoom = async (
+  myData: Pick<UserType, 'uid' | 'displayName' | 'photoURL'>,
+  anotherData: Pick<UserType, 'uid' | 'displayName' | 'photoURL'>
+) => {
+  const roomId = getDmRoomID(myData.uid, anotherData.uid);
+  const dmRoomRef = ref(realtimeDB, 'dmroom/' + roomId);
+  
+  const users = {};
+  users[myData.uid] = myData;
+  users[anotherData.uid] = anotherData;
+
+  const newChatRoom = {
+    id: roomId,
+    totalCount: 0,
+    lastUpdatedAt: serverTimestamp(),
+    users,
+  }
+
+  await set(dmRoomRef, newChatRoom);
+}
+
+// DM 방 id 생성
+export const getDmRoomID = (myUid: string, anotherUid: string | string[]) => {
+  anotherUid = Array.isArray(anotherUid) ? anotherUid[0] : anotherUid;
+  return myUid < anotherUid ? myUid + '-' + anotherUid : anotherUid + '-' + myUid;
+}
+
+// DM 방 리스트 조회
+export const dmListListeners = (uid: string, setDmRooms: Dispatch<SetStateAction<ChatRoomType[]>>) => {
+  const dmRoomRef = query(ref(realtimeDB, 'dmroom'), orderByChild('lastUpdatedAt'));
+  const dmRooms = [];
+
+  onChildAdded(dmRoomRef, (data) => {
+    if (data.key.includes(uid)) {
+      dmRooms.unshift(data);
+    
+      setTimeout(() => {
+        setDmRooms([...dmRooms]);
+      }, 200);
+    }
+  });
+}
+
+// DM 데이터 유무 조회
+export const checkRoomData = async (roomId: string | string[]) => { 
+  roomId = Array.isArray(roomId) ? roomId[0] : roomId;
+  const chatRoomRef = ref(realtimeDB, 'dmroom/' + roomId);
+  const result = await get(chatRoomRef);
+
+  return !!result.val();
 }
