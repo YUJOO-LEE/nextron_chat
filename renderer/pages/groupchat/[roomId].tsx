@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import MessageInput from '../../components/common/MessageInput';
-import GroupChatRoomContent from '../../components/groupchat/RoomContent';
+import Messages from '../../components/common/Messages';
 import GroupChatRoomHeader from '../../components/groupchat/RoomHeader';
 
 const GroupChatPage = () => {
@@ -12,7 +12,7 @@ const GroupChatPage = () => {
   return (
     <Styled.Wrapper>
       <GroupChatRoomHeader roomId={stringRoomId} />
-      <GroupChatRoomContent roomId={stringRoomId} />
+      <Messages roomId={stringRoomId} />
       <MessageInput roomId={stringRoomId} />
     </Styled.Wrapper>
   )

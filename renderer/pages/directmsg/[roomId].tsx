@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import MessageInput from '../../components/common/MessageInput';
+import Messages from '../../components/common/Messages';
 import { getChatRoomData } from '../../firebase/realtimeDB';
 import { ChatRoomType } from '../../types/chatRoom';
 
@@ -21,6 +22,7 @@ const DmPage = () => {
 
   return (
     <Styled.Wrapper>
+      <Messages roomId={stringRoomId} />
       <MessageInput roomId={stringRoomId} />
     </Styled.Wrapper>
   )

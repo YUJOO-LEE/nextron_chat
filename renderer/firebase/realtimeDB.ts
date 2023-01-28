@@ -51,7 +51,9 @@ export const setNewChatRoom = async (roomName: string, user: UserType) => {
 }
 
 // 채팅방 리스트 조회
-export const addChatRoomsListeners = (setChatRooms: Dispatch<SetStateAction<ChatRoomType[]>>) => {
+export const addChatRoomsListeners = (
+  setChatRooms: Dispatch<SetStateAction<ChatRoomType[]>>
+) => {
   const chatRoomRef = query(ref(realtimeDB, 'chatroom'), orderByChild('lastUpdatedAt'));
   const chatRooms = [];
 

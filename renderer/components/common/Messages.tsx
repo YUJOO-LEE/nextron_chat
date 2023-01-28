@@ -5,7 +5,7 @@ import { addMessagesListeners, offMessagesListeners } from '../../firebase/realt
 import { MessageType } from '../../types/chatRoom';
 import moment from 'moment';
 
-const GroupChatRoomContent = ({ roomId }: { roomId: string }) => {
+const Messages = ({ roomId }: { roomId: string }) => {
 
   const { User } = useAuth();
 
@@ -61,7 +61,7 @@ const GroupChatRoomContent = ({ roomId }: { roomId: string }) => {
   )
 }
 
-export default GroupChatRoomContent;
+export default Messages;
 
 const Styled = {
   ListWrapper: styled.ul`
