@@ -1,7 +1,7 @@
 import { UserType } from './../types/user';
 import { child, ref, set, push, onChildAdded, off, onValue, serverTimestamp, query, orderByChild, update, get, onChildChanged } from 'firebase/database';
 import { realtimeDB } from '../config/firebase';
-import { ChatRoomType, MessageType } from '../types/chatRoom';
+import { ChatRoomType, DmRoomType, MessageType } from '../types/chatRoom';
 import { Dispatch, SetStateAction } from 'react';
 
 
@@ -169,19 +169,28 @@ export const getDmRoomID = (myUid: string, anotherUid: string | string[]) => {
 }
 
 // DM 방 리스트 조회
-export const dmListListeners = (uid: string, setDmRooms: Dispatch<SetStateAction<ChatRoomType[]>>) => {
+export const dmListListeners = (
+  uid: string,
+  setDmRooms: Dispatch<SetStateAction<DmRoomType[]>>
+) => {
   const dmRoomRef = query(ref(realtimeDB, 'dmroom'), orderByChild('lastUpdatedAt'));
-  const dmRooms = [];
+  const dmRooms: DmRoomType[] = [];
 
   onChildAdded(dmRoomRef, (data) => {
     if (data.key.includes(uid)) {
-      dmRooms.unshift(data);
+      dmRooms.unshift(data.val());
     
       setTimeout(() => {
         setDmRooms([...dmRooms]);
       }, 200);
     }
   });
+}
+
+// DM 방 리스트 감시 종료
+export const offDmListListeners = () => {
+  const dmRoomRef = ref(realtimeDB, 'dmroom');
+  off(dmRoomRef);
 }
 
 // DM 데이터 유무 조회

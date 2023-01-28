@@ -1,3 +1,5 @@
+import { UserType } from './user';
+
 export type ChatRoomType = {
   id: string;
   roomName: string;
@@ -23,4 +25,7 @@ export type DmRoomType = {
   id: string;
   totalCount: number;
   lastUpdatedAt: number;
+  users: {
+    [key: string] : Pick<UserType, 'uid' | 'displayName' | 'photoURL'>,
+  }
 }
