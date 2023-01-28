@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import MessageInput from '../../components/groupchat/MessageInput';
+import MessageInput from '../../components/common/MessageInput';
 import GroupChatRoomContent from '../../components/groupchat/RoomContent';
 import GroupChatRoomHeader from '../../components/groupchat/RoomHeader';
 

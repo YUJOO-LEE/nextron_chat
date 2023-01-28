@@ -2,8 +2,8 @@ import { ChangeEvent, FormEventHandler, KeyboardEventHandler, useState } from 'r
 import styled from 'styled-components';
 import { useAuth } from '../../firebase/authContext';
 import { addNewMessage } from '../../firebase/realtimeDB';
-import Button from '../common/Button';
-import Textarea from '../common/Textarea';
+import Button from './Button';
+import Textarea from './Textarea';
 
 const MessageInput = ({ roomId }: { roomId: string }) => {
 
