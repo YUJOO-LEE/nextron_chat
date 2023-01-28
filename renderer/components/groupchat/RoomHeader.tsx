@@ -15,13 +15,14 @@ const GroupChatRoomHeader = ({ roomId }: { roomId: string }) => {
       {ChatRoomData &&
       <>
         <Styled.Title>
-          <Styled.RoomIcon>
+          {/* <Styled.RoomIcon>
             <img src={ChatRoomData.createdBy.photoURL} alt={ChatRoomData.createdBy.displayName} />
-          </Styled.RoomIcon>
+          </Styled.RoomIcon> */}
           <span>{ChatRoomData.roomName}</span>
         </Styled.Title>
         <Styled.Side>
           <Styled.Creater>
+            <span>Created by </span>
             {ChatRoomData.createdBy.displayName}
           </Styled.Creater>
           <Styled.Counter>
@@ -71,6 +72,9 @@ const Styled = {
     background-color: #efefef;
     border-radius: 5px;
     font-size: 14px;
+    span{
+      font-size: 12px;
+    }
   `,
   Counter: styled.p`
     font-size: 12px;
