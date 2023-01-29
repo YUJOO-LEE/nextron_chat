@@ -65,9 +65,8 @@ const Styled = {
   Wrapper: styled.header`
     position: fixed;
     z-index: 10;
-    width: 60px;
+    width: 70px;
     height: 100%;
-    padding: 5px;
     background-color: #00631c;
   `,
   ListWrapper: styled.ul`
@@ -76,7 +75,7 @@ const Styled = {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 40px 5px 20px;
     gap: 30px;
   `,
   ListItem: styled.li`

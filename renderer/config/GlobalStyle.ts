@@ -23,6 +23,8 @@ export const GlobalStyle = createGlobalStyle`
       sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -user-select: none;
+    -webkit-app-region: drag;
   }
 
   code{

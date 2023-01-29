@@ -57,6 +57,7 @@ export default MessageInput;
 
 const Styled = {
   InputMsg: styled.form`
+    -webkit-app-region: no-drag;
     width: 100%;
     padding: 10px;
     display: flex;

@@ -14,8 +14,13 @@ if (isProd) {
   await app.whenReady();
 
   const mainWindow = createWindow('main', {
+    minWidth: 460,
+    minHeight: 680,
     width: 460,
     height: 680,
+    center: true,
+    autoHideMenuBar: true,
+    titleBarStyle: 'hidden',
   });
 
   if (isProd) {

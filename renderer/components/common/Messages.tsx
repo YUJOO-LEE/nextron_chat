@@ -65,6 +65,7 @@ export default Messages;
 
 const Styled = {
   ListWrapper: styled.ul`
+    -webkit-app-region: no-drag;
     padding: 10px 20px;
     min-height: 0;
     flex: 1;
