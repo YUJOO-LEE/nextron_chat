@@ -223,7 +223,8 @@ export const changedDmListeners = (
 
   onChildChanged(dmRoomRef, (data) => {
     if (data.key.includes(uid)) {
-      if (location.pathname === '/directmsg') return;
+      const pathname = location.pathname;
+      if (pathname === '/directmsg' || pathname.includes(data.key)) return;
 
       setHasNewDm(true);
     }
