@@ -1,6 +1,33 @@
-appId: com.yujoo.nextron
+appId: com.leeyujoo.nextron
 productName: YUJOO CHAT
 copyright: Copyright © 2023 YUJOO-LEE
+asar: true
+protocols:
+  name: YUJOO CHAT
+  schemes:
+    - YUJOO CHAT
+mac:
+  target:
+    - default
+dmg:
+  title: tournant
+win:
+  target:
+    - nsis
+linux:
+  target:
+    - AppImage
+    - deb
+    - rpm
+    - zip
+    - tar.gz
+nsis:
+  allowToChangeInstallationDirectory: false
+  createDesktopShortcut: true
+  installerLanguages:
+    - en_US
+    - ko_KR
+  language: 1042
 directories:
   output: dist
   buildResources: resources
