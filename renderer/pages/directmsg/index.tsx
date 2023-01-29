@@ -13,10 +13,6 @@ const DirectMsg = () => {
 
   useEffect(() => {
     dmListListeners(User.uid, setDmRooms);
-
-    return () => {
-      offDmListListeners();
-    }
   }, []);
 
   return (

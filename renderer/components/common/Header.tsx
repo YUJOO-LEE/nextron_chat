@@ -1,16 +1,26 @@
 import Link from 'next/link';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../firebase/authContext';
+import { changedDmListeners, offDmListListeners } from '../../firebase/realtimeDB';
 import Tooltip from './Tooltip';
 
 const Header = () => {
   const { User, logout } = useAuth();
+  const [HasNewDm, setHasNewDm] = useState<boolean>(false);
 
   const handleLogout: FormEventHandler = (e) => {
     e.preventDefault();
     logout();
   }
+
+  useEffect(() => {
+    changedDmListeners(User.uid, setHasNewDm);
+
+    return () => {
+      offDmListListeners();
+    }
+  }, []);
 
   return (
     <Styled.Wrapper>
@@ -24,8 +34,10 @@ const Header = () => {
           <Tooltip left='30px'>그룹 채팅</Tooltip>
         </Styled.ListItem>
         <Styled.ListItem className='directmsg'>
-          <Link href='/directmsg'> </Link>
+          <Link href='/directmsg' onClick={() => setHasNewDm(false)} legacyBehavior={false}> </Link>
           <Tooltip left='30px'>다이렉트 메세지</Tooltip>
+          {HasNewDm &&
+            <Styled.New />}
         </Styled.ListItem>
         <Styled.Blank />
         <Styled.ListItem className='userinfo'>
@@ -131,5 +143,14 @@ const Styled = {
   `,
   Blank: styled.li`
     flex: 1;
+  `,
+  New: styled.i`
+    position: absolute;
+    bottom: -3px;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: red;
   `,
 }

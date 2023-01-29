@@ -213,3 +213,19 @@ export const checkRoomData = async (roomId: string | string[]) => {
 
   return !!result.val();
 }
+
+// DM 방 변경여부 조회
+export const changedDmListeners = (
+  uid: string,
+  setHasNewDm: Dispatch<SetStateAction<boolean>>
+) => {
+  const dmRoomRef = ref(realtimeDB, 'dmroom');
+
+  onChildChanged(dmRoomRef, (data) => {
+    if (data.key.includes(uid)) {
+      if (location.pathname === '/directmsg') return;
+
+      setHasNewDm(true);
+    }
+  });
+}
