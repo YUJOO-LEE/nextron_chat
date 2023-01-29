@@ -56,8 +56,8 @@ const Styled = {
     align-items: center;
   `,
   Modal: styled.div`
-    min-width: 320px;
-    min-height: 220px;
+    min-width: 220px;
+    min-height: 120px;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 10px;

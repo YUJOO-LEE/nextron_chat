@@ -3,6 +3,7 @@ import { ChangeEvent, ChangeEventHandler, FormEventHandler, useRef, useState } f
 import styled from 'styled-components';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
+import { StyledModal } from '../../components/common/Modal';
 import { useAuth } from '../../firebase/authContext';
 import { uploadImageToStorage } from '../../firebase/storage';
 
@@ -13,6 +14,7 @@ const Userinfo = () => {
   const inputChangeImage = useRef<HTMLInputElement>(null);
   const [UserName, setUserName] = useState<string>(displayName);
   const [Loading, setLoading] = useState<boolean>(false);
+  const [ModalShown, setModalShown] = useState<boolean>(false);
   
   // 사진 변경 버튼 이벤트
   const handleChangeImage = async () => {
@@ -32,16 +34,17 @@ const Userinfo = () => {
   }
 
   // 파일 외 다른 정보 저장
-  const handleSubmit: FormEventHandler = (e) => {
+  const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
 
     try{
       setLoading(true);
-      editUserInfo({uid: User.uid, type: 'displayName', value: UserName});
+      await editUserInfo({uid: User.uid, type: 'displayName', value: UserName});
     } catch(err) {
       console.error(err);
     } finally {
       setLoading(false);
+      setModalShown(true);
     }
   }
 
@@ -89,6 +92,9 @@ const Userinfo = () => {
           </Styled.ListItem>
         </Styled.ListWrapper>
       </form>
+      <StyledModal show={ModalShown} toggleShow={setModalShown}>
+        저장되었습니다
+      </StyledModal>
     </div>
   )
 }

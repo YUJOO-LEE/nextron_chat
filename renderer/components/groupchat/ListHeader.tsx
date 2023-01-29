@@ -90,6 +90,8 @@ const Styled = {
     }
   `,
   ModalInner: styled.div`
+    width: 220px;
+    height: 150px;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -22,7 +22,7 @@ const Styled = {
     cursor: pointer;
 
     &:disabled{
-      text-indent: -99999px;
+      color: transparent;
       opacity: 0.5;
 
       &::after{
@@ -56,11 +56,19 @@ const Styled = {
 
     &.gray{
       background-color: #efefef;
+
+      &:disabled{
+        color: #efefef;
+      }
     }
 
     &.green{
       background-color: #00631c;
       color: #fff;
+
+      &:disabled{
+        color: #00631c;
+      }
     }
   `,
 }
