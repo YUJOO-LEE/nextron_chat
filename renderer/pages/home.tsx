@@ -7,6 +7,7 @@ import { NextPage } from 'next';
 import { ChangeEvent, FormEventHandler, useState } from 'react';
 import { useAuth } from '../firebase/authContext';
 import { errorMsg } from '../data/errorMsg';
+import Logo from '../components/common/Logo';
 
 const Home: NextPage = () => {
   const { login } = useAuth();
@@ -41,7 +42,10 @@ const Home: NextPage = () => {
       </Head>
       <Styled.Wrapper>
         <form onSubmit={handleLogin}>
-          <Styled.Title>YUJOO CHAT</Styled.Title>
+          <Styled.Title>
+            <Styled.Logo src='/images/logo.png' alt='YUJOO CHAT' />
+            YUJOO CHAT
+          </Styled.Title>
           <Styled.ListWrapper>
             <Styled.ListItem>
               <Input type='text' name='userEmail'
@@ -92,9 +96,16 @@ const Styled = {
     align-items: stretch;
     margin: 0 auto;
   `,
+  Logo: styled.img`
+    width: 48px;
+    height: 48px;
+  `,
   Title: styled.h1`
-    text-align: center;
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 50px;
   `,
   ListWrapper: styled.ul`
     display: flex;
