@@ -7,7 +7,6 @@ import { NextPage } from 'next';
 import { ChangeEvent, FormEventHandler, useState } from 'react';
 import { useAuth } from '../firebase/authContext';
 import { errorMsg } from '../data/errorMsg';
-import Logo from '../components/common/Logo';
 
 const Home: NextPage = () => {
   const { login } = useAuth();
@@ -65,9 +64,9 @@ const Home: NextPage = () => {
             </Styled.ListItem>
 
             {ErrorMsg &&
-              <Styled.ListItem>
+              <Styled.ErrorMsg>
                 {ErrorMsg}
-              </Styled.ListItem>}
+              </Styled.ErrorMsg>}
 
             <Styled.ListItem>
               <Button type='submit' className='big green' disabled={Loading}>로그인</Button>
@@ -128,6 +127,11 @@ const Styled = {
       font-size: 14px;
       line-height: 18px;
     }
+  `,
+  ErrorMsg: styled.li`
+    text-align: center;
+    font-size: 14px;
+    color: red;
   `,
   Signup: styled.p`
     span{

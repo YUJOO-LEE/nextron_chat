@@ -82,19 +82,19 @@ const Signup: NextPage = () => {
             </Styled.ListItem>
 
             {ErrorMsg &&
-              <Styled.ListItem>
+              <Styled.ErrorMsg>
                 {ErrorMsg}
-              </Styled.ListItem>}
+              </Styled.ErrorMsg>}
 
             <Styled.ListItem>
               <Button type='submit' className='big green' disabled={Loading}>회원가입</Button>
             </Styled.ListItem>
           </Styled.ListWrapper>
         </form>
-        <Styled.Signup>
+        <Styled.Login>
           <span>이미 회원가입을 하셨나요?</span>
           <Link href='/home'>로그인</Link>
-        </Styled.Signup>
+        </Styled.Login>
       </Styled.Wrapper>
     </>
   )
@@ -139,7 +139,12 @@ const Styled = {
       line-height: 18px;
     }
   `,
-  Signup: styled.p`
+  ErrorMsg: styled.li`
+    text-align: center;
+    font-size: 14px;
+    color: red;
+  `,
+  Login: styled.p`
     span{
       display: block;
       margin-bottom: 10px;
