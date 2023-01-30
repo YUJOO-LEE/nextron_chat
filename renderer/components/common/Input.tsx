@@ -11,6 +11,7 @@ export default Input;
 
 const Styled = {
   Input: styled.input`
+    -webkit-app-region: no-drag;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ddd;

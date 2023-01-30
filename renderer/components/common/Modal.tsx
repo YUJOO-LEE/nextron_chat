@@ -43,6 +43,7 @@ export const StyledModal = ({
 
 const Styled = {
   Wrapper: styled.div`
+    -webkit-app-region: no-drag;
     position: fixed;
     z-index: 100;
     top: 0;
