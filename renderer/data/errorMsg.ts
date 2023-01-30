@@ -8,5 +8,6 @@ export const errorMsg = {
   'signup-form-is-empty': '정보를 모두 입력하세요',
   'pw-are-diffent': '비밀번호를 맞게 입력하세요',
   'auth/email-already-in-use': '이미 가입한 이메일입니다',
-  'auth/invalid-email': '이메일 형식에 맞게 입력하세요'
+  'auth/invalid-email': '이메일 형식에 맞게 입력하세요',
+  'auth/weak-password': '비밀번호를 6글자 이상 입력하세요',
 }
